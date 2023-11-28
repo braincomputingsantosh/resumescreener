@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run Resume Analysis using AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #progressBarContainer {
+            width: 100%;
+            height: 20px;
+            background-color: #ddd;
+            display: none;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 100%;
+            background-color: green;
+            text-align: center;
+            line-height: 20px; /* same as height of the container */
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+    <div class="homepage">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#">Link 1</a></li>
+                <li><a href="#">Link 2</a></li>
+                <li><a href="#">Link 3</a></li>
+                <li><a href="#">Link 4</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <br><h1>Revolutionize Your Hiring Process with the Resume Screener</h1>
+            <p>
+            In the fast-paced world of recruitment, finding the ideal candidate for a job can be like searching for a needle in a haystack. Enter the Resume Screener - a cutting-edge tool designed to streamline the hiring process, making it more efficient and effective.
+            </p>
+            <h1>Key Features:</h1>
+            <ol>
+            <li><b>Intelligent Analysis:</b> Leveraging the power of advanced AI and GPT-4, the Resume Screener meticulously evaluates each candidate’s resume against a set of predefined criteria. Whether you’re hiring for a technical role, a leadership position, or anything in between, this tool ensures that only the most qualified candidates pass through.
+            </li>
+            <li>
+            <b>Customizable Screening Criteria:</b> Tailor the screening process to meet the specific requirements of the job. From technical expertise in machine learning to executive leadership experience, set criteria that matter most to the role.
+            </li>
+            <li>
+            <b>Comprehensive Evaluation:</b> The pack goes beyond basic keyword matching. It conducts a deep analysis of each resume, assessing a candidate's experience, technical skills, and educational background, ensuring a comprehensive review.
+            </li>
+            <li>
+            <b>Time and Resource Efficient:</b> By automating the initial stages of the resume screening process, the Resume screener significantly reduces the time and effort required to shortlist candidates. This allows HR professionals to focus on engaging with the most promising applicants.
+            </li>
+            </ol>
+            </br>
+            <form method="post" enctype="multipart/form-data" action="/upload">
+                <p><b>* Requirements</b></p>
+                <textarea name="text" rows="4" cols="200" placeholder="Enter text here..."></textarea><br>
+                <p><b>* Criteria</b></p>
+                <textarea name="criteria" rows="4" cols="200" placeholder="Enter text here..."></textarea><br>
+                <p>* Upload resume</p><br>
+                <input type="file" name="file" accept="application/pdf"><br>
+                <input type="submit" value="Upload resume and run analysis" id="submitBtn">
+            </form>
+            <div id="progressBarContainer">
+                <div id="progressBar">Uploading...</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            var progressBarContainer = document.getElementById('progressBarContainer');
+            var progressBar = document.getElementById('progressBar');
+            progressBarContainer.style.display = 'block';
+            
+            var width = 0;
+            var interval = setInterval(function() {
+                if (width >= 100) {
+                    clearInterval(interval);
+                    progressBar.innerText = 'Running resume analysis...';
+                } else {
+                    width++; 
+                    progressBar.style.width = width + '%'; 
+                    progressBar.innerText = 'Uploading... ' + width + '%';
+                }
+            }, 100); // Update progress every 100ms
+        });
+    </script>
+</body>
+</html>
